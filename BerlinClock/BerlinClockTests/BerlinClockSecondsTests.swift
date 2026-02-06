@@ -16,7 +16,7 @@ struct BerlinClockSecondsTests {
     func secondsLamp_isOn_whenSecondsIsEven() {
         let engine = BerlinClockEngine()
         let result = engine.secondsLamp(0)
-        #expect(result == "On")
+        #expect(result == "ON")
     }
     
     @Test("Test seconds lamp is off when second is odd")
@@ -30,8 +30,8 @@ struct BerlinClockSecondsTests {
     func secondsLamp_isOn_forAnyEvenSecond() {
         let engine = BerlinClockEngine()
         
-        #expect(engine.secondsLamp(2) == "On")
-        #expect(engine.secondsLamp(58) == "On")
+        #expect(engine.secondsLamp(2) == "ON")
+        #expect(engine.secondsLamp(58) == "ON")
     }
     
     @Test("Test lamp is off for any odd seconds")
@@ -41,4 +41,5 @@ struct BerlinClockSecondsTests {
         #expect(engine.secondsLamp(3) == "OFF")
         #expect(engine.secondsLamp(59) == "OFF")
     }
+    
 }

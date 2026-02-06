@@ -7,10 +7,6 @@
 
 struct BerlinClockEngine {
     func secondsLamp(_ seconds: Int) -> String {
-        if seconds % 2 == 0 {
-            return "On"
-        } else {
-            return "OFF"
-        }
+        seconds.isMultiple(of: 2) ? "ON" : "OFF"
     }
 }
