@@ -18,4 +18,11 @@ struct BerlinClockSecondsTests {
         let result = engine.secondsLamp(0)
         #expect(result == "Y")
     }
+    
+    @Test("Test seconds lamp is off when second is odd")
+    func secondsLamp_isOff_whenSecondsIsOdd() {
+        let engine = BerlinClockEngine()
+        let result = engine.secondsLamp(1)
+        #expect(result == "Y")
+    }
 }
