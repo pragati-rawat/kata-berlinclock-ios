@@ -42,4 +42,21 @@ struct BerlinClockSecondsTests {
         #expect(engine.secondsLamp(59) == "OFF")
     }
     
+    @Test("Test seconds lamp turns on for any even seconds")
+    func secondsLamp_turnsOn_forAnyEvenSecond() {
+        let engine = BerlinClockEngine()
+
+        for second in stride(from: 0, through: 58, by: 2) {
+            #expect(engine.secondsLamp(second) == "ON")
+        }
+    }
+    
+    @Test("Test seconds lamp turns on for any even seconds")
+    func secondsLamp_turnsOn_forAnyEvenSecond() {
+        let engine = BerlinClockEngine()
+
+        for second in stride(from: 0, through: 58, by: 2) {
+            #expect(engine.secondsLamp(second) == "ON")
+        }
+    }
 }
