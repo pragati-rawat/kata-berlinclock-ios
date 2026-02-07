@@ -5,16 +5,7 @@
 //  Created by Pragati RAWAT on 06/02/2026.
 //
 
-enum LampState {
+enum LampState: Equatable, Sendable {
     case on
     case off
-    
-    var symbol: String {
-        switch self {
-        case .on:
-            return "ON"
-        case .off:
-            return "OFF"
-        }
-    }
 }

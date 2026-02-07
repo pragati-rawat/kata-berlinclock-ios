@@ -6,8 +6,8 @@
 //
 
 struct BerlinClockEngine {
-    func secondsLamp(_ seconds: Int) -> String {
+    func secondsLamp(_ seconds: Int) -> LampState {
         let state: LampState = seconds.isMultiple(of: 2) ? .on : .off
-        return state.symbol
+        return state
     }
 }
