@@ -34,4 +34,23 @@ struct BerlinClockTopRowMinutesTests {
           let engine = BerlinClockEngine()
           #expect(engine.topMinuteRow(15) == "YYROOOOOOOO")
       }
+
+    @Test("Test top minute row turns on lamps correctly for twenty minutes")
+    func topMinuteRow_forTwentyMinutes() {
+        let engine = BerlinClockEngine()
+        #expect(engine.topMinuteRow(20) == "YYRYOOOOOOO")
+    }
+
+    @Test("Test top minute row turns on lamps correctly for thirty minutes")
+    func topMinuteRow_forThirtyMinutes() {
+        let engine = BerlinClockEngine()
+        #expect(engine.topMinuteRow(30) == "YYRYYROOOOO")
+    }
+
+    @Test("Test top minute row turns on lamps correctly for thirty-five minutes")
+    func topMinuteRow_forThirtyFiveMinutes() {
+        let engine = BerlinClockEngine()
+        #expect(engine.topMinuteRow(35) == "YYRYYRYOOOO")
+    }
+
 }
