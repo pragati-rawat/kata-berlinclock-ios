@@ -14,9 +14,9 @@ struct BerlinClockEngine {
     }
     
     func topMinuteRow(_ minutes: Int) -> String {
-        if minutes >= 5 {
-            return "YOOOOOOOOOO"
-        }
-        return "OOOOOOOOOOO"
+        let onCount = minutes / 5
+        let on = String(repeating: "Y", count: onCount)
+        let off = String(repeating: "O", count: 11 - onCount)
+        return on + off
     }
 }

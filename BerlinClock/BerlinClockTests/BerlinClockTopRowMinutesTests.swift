@@ -22,4 +22,10 @@ struct BerlinClockTopRowMinutesTests {
         let engine = BerlinClockEngine()
         #expect(engine.topMinuteRow(5) == "YOOOOOOOOOO")
     }
+    
+    @Test("Test top minute row turns on one Lamp for ten minutes")
+    func topMinuteRow_turnsOnTwoLamps_forTenMinutes() {
+        let engine = BerlinClockEngine()
+        #expect(engine.topMinuteRow(10) == "YYOOOOOOOOO")
+    }
 }
