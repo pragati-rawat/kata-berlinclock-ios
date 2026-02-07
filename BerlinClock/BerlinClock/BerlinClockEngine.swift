@@ -15,8 +15,12 @@ struct BerlinClockEngine {
     
     func topMinuteRow(_ minutes: Int) -> String {
         let onCount = minutes / 5
-        let on = String(repeating: "Y", count: onCount)
-        let off = String(repeating: "O", count: 11 - onCount)
-        return on + off
+        return (0..<11).map { index in
+            if index < onCount {
+                return (index + 1).isMultiple(of: 3) ? "R" : "Y"
+            } else {
+                return "O"
+            }
+        }.joined()
     }
 }
