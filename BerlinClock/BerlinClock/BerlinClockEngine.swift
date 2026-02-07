@@ -14,6 +14,9 @@ struct BerlinClockEngine {
     }
     
     func topMinuteRow(_ minutes: Int) -> String {
+        if minutes >= 5 {
+            return "YOOOOOOOOOO"
+        }
         return "OOOOOOOOOOO"
     }
 }
