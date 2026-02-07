@@ -6,8 +6,14 @@
 //
 
 struct BerlinClockEngine {
+    
+    // MARK: Seconds Lamp State Logic
     func secondsLamp(_ seconds: Int) -> LampState {
         let state: LampState = seconds.isMultiple(of: 2) ? .on : .off
         return state
+    }
+    
+    func topMinuteRow(_ minutes: Int) -> String {
+        return "OOOOOOOOOOO"
     }
 }
