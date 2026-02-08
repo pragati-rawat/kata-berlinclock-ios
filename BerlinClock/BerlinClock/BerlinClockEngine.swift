@@ -33,7 +33,7 @@ struct BerlinClockEngine {
         case 1: return [.on(.yellow), .off, .off, .off]
         case 2: return [.on(.yellow), .on(.yellow), .off, .off]
         case 3: return [.on(.yellow), .on(.yellow), .on(.yellow), .off]
-
+        case 4: return [.on(.yellow), .on(.yellow), .on(.yellow), .on(.yellow)]
         default:
             return [.off, .off, .off, .off]
         }

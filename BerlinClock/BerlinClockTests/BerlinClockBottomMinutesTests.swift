@@ -44,7 +44,6 @@ struct BerlinClockBottomMinutesTests {
     }
     
     @Test("Test bottom minute row turns on three lamps for three minutes")
-    @MainActor
     func bottomMinuteRow_forThreeMinutes() {
         let engine = BerlinClockEngine()
         let result = engine.bottomMinuteRow(3)
@@ -53,5 +52,13 @@ struct BerlinClockBottomMinutesTests {
         #expect(result == expected)
     }
     
+    @Test("Test bottom minute row turns on four lamps for three minutes")
+    func bottomMinuteRow_forFourMinutes() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomMinuteRow(4)
+        
+        let expected: [LampState] = [.on(.yellow), .on(.yellow), .on(.yellow), .on(.yellow)]
+        #expect(result == expected)
+    }
     
 }
