@@ -51,4 +51,12 @@ struct BerlinClockBottomHoursTests {
         
         #expect(result == [.on(.red), .on(.red), .on(.red), .on(.red)])
     }
+    
+    @Test("Test bottom row resets all lamp after 5 hours")
+    func bottomHourRow_resets_afterFiveHours() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomHourRow(5)
+        
+        #expect(result.allSatisfy { $0 == .off })
+    }
 }
