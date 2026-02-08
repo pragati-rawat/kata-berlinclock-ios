@@ -46,7 +46,7 @@ struct BerlinClockSecondsTests {
     @Test("Test seconds lamp turns on for any even seconds")
     func secondsLamp_turnsOn_forAnyEvenSecond() {
         let engine = BerlinClockEngine()
-
+        
         for second in stride(from: 0, through: 58, by: 2) {
             #expect(engine.secondsLamp(second) == .on(.yellow))
         }
@@ -55,11 +55,23 @@ struct BerlinClockSecondsTests {
     @Test("Test seconds lamp turns off for any odd seconds")
     func secondsLamp_turnsOff_forAnyOddSecond() {
         let engine = BerlinClockEngine()
-
+        
         // Using through: 59 because it's the last odd second in a minute
         for second in stride(from: 1, through: 59, by: 2) {
             #expect(engine.secondsLamp(second) == .off)
         }
     }
+    
+    @Test("Test edge case with start/stop/start sequence")
+    func start_calledTwice_isSafe() {
+        let service = ClockService()
+        
+        service.start { _ in }
+        service.start { _ in }
+        service.stop()
+        
+        #expect(true)
+    }
+    
 }
 
