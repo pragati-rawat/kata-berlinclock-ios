@@ -9,6 +9,7 @@ import Testing
 @testable import BerlinClock
 
 @Suite("BerlinClockBottomMinutes Tests")
+@MainActor
 struct BerlinClockBottomMinutesTests {
     
     @Test("Test bottom minute row is all off when minute is zero")
@@ -32,4 +33,15 @@ struct BerlinClockBottomMinutesTests {
         #expect(result[2] == .off)
         #expect(result[3] == .off)
     }
+    
+    @Test("Test bottom minute row turns on two lamps for two minutes")
+    func bottomMinuteRow_forTwoMinutes() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomMinuteRow(2)
+        
+        let expected: [LampState] = [.on(.yellow), .on(.yellow), .off, .off]
+        #expect(result == expected)
+    }
+    
+    
 }
