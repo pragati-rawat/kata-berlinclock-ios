@@ -29,7 +29,12 @@ struct BerlinClockEngine {
     }
     
     func bottomMinuteRow(_ minutes: Int) -> [LampState] {
-        return [.off, .off, .off, .off]
+        switch minutes {
+        case 1: return [.on(.yellow), .off, .off, .off]
+        
+        default:
+            return [.off, .off, .off, .off]
+        }
     }
 }
 

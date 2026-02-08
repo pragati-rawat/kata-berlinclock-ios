@@ -20,4 +20,16 @@ struct BerlinClockBottomMinutesTests {
         #expect(result.count == 4)
         #expect(result.allSatisfy { $0 == .off })
     }
+    
+    @Test("Test bottom minute row is turns on oNe lamp for one minute")
+    func bottomMinuteRow_turnsOnOneLamp_forOneMinute() {
+        let engine = BerlinClockEngine()
+        
+        let result = engine.bottomMinuteRow(1)
+        
+        #expect(result[0] == .on(.yellow))
+        #expect(result[1] == .off)
+        #expect(result[2] == .off)
+        #expect(result[3] == .off)
+    }
 }
