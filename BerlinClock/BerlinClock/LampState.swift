@@ -5,7 +5,12 @@
 //  Created by Pragati RAWAT on 06/02/2026.
 //
 
+enum LampColor {
+    case yellow
+    case red
+}
+
 enum LampState: Equatable, Sendable {
-    case on
+    case on(LampColor)
     case off
 }
