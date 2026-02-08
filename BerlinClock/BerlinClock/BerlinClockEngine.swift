@@ -32,6 +32,7 @@ struct BerlinClockEngine {
         switch minutes {
         case 1: return [.on(.yellow), .off, .off, .off]
         case 2: return [.on(.yellow), .on(.yellow), .off, .off]
+        case 3: return [.on(.yellow), .on(.yellow), .on(.yellow), .off]
 
         default:
             return [.off, .off, .off, .off]
