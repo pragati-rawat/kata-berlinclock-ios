@@ -30,4 +30,13 @@ struct BerlinClockTopRowHoursTests {
           let expected: [LampState] = [.on(.red), .off, .off, .off]
           #expect(result == expected)
       }
+    
+    @Test("Test top hour row is all off when hour is zero")
+    func topHourRow_turnsOnTwoLamp_forFiveHours() {
+        let engine = BerlinClockEngine()
+        
+        let result = engine.topHourRow(10)
+        let expected: [LampState] = [.on(.red), .on(.red), .off, .off]
+        #expect(result == expected)
+    }
 }
