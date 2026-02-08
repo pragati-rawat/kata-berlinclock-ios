@@ -61,4 +61,17 @@ struct BerlinClockBottomMinutesTests {
         #expect(result == expected)
     }
     
+    @Test("Test bottom minute row count for 1-4 minutes", arguments: [1, 2, 3, 4])
+    func bottomMinuteRow_countsLampsCorrectly(minutes: Int) {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomMinuteRow(minutes)
+        
+        // Check that the number of .on(.yellow) states matches the minutes
+        let onCount = result.filter { $0 == .on(.yellow) }.count
+        #expect(onCount == minutes)
+        
+        // Check that the remaining lamps are .off
+        let offCount = result.filter { $0 == .off }.count
+        #expect(offCount == (4 - minutes))
+    }
 }
