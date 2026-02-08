@@ -38,4 +38,14 @@ struct ClockServiceTests {
         #expect(time.minutes >= 0)
         #expect(time.seconds >= 0)
     }
+    
+    @Test("Test start/stop to not crash")
+    func start_thenStop_doesNotCrash() {
+        let service = ClockService()
+
+        service.start { _ in }
+        service.stop()
+
+        #expect(true)
+    }
 }
