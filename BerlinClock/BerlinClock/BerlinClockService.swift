@@ -25,4 +25,9 @@ struct ClockService {
             seconds: components.second ?? 0
         )
     }
+    
+    func now() -> (hours: Int, minutes: Int, seconds: Int) {
+        clockTime(from: Date())
+    }
+
 }

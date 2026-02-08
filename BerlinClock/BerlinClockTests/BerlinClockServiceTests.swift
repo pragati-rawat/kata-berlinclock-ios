@@ -29,4 +29,13 @@ struct ClockServiceTests {
         #expect(time.seconds == 1)
     }
 
+    @Test("Test now() to return current clock time")
+    func now_returnsClockTime() {
+        let service = ClockService()
+        let time = service.now()
+
+        #expect(time.hours >= 0)
+        #expect(time.minutes >= 0)
+        #expect(time.seconds >= 0)
+    }
 }
