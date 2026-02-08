@@ -12,11 +12,11 @@ struct BerlinClockTimeComposer {
                                                                       bottomMins: [LampState],
                                                                       topHours: [LampState],
                                                                       bottomHours: [LampState]) {
-        let seconds = engine.secondsLamp(0)
-        let topMin = engine.topMinuteRow(0)
-        let bottomMin = engine.bottomMinuteRow(0)
-        let topHour = engine.topHourRow(0)
-        let bottomHour = engine.bottomHourRow(0)
+        let seconds = engine.secondsLamp(seconds)
+        let topMin = engine.topMinuteRow(minutes)
+        let bottomMin = engine.bottomMinuteRow(minutes)
+        let topHour = engine.topHourRow(hours)
+        let bottomHour = engine.bottomHourRow(hours)
         
         return (seconds, topMin, bottomMin, topHour, bottomHour)
         

@@ -15,7 +15,7 @@ struct BerlinClockTimeComposerTests {
     @Test("Test composing BerlinClock state")
     func compose_returnsBerlinClockState() {
         let engine = BerlinClockEngine()
-        let composer = BerlinClockTimeComposer(berlinClockEngine: engine)
+        let composer = BerlinClockTimeComposer(engine: engine)
         
         let state = composer.composeClockTime(hours: 0, minutes: 0, seconds: 0)
         
@@ -36,12 +36,41 @@ struct BerlinClockTimeComposerTests {
         let engine = BerlinClockEngine()
         let composer = BerlinClockTimeComposer(engine: engine)
 
-        let state = composer.compose(
+        let state = composer.composeClockTime(
             hours: 0,
             minutes: 0,
             seconds: 2
         )
         #expect(state.seconds == .on(.yellow))
+    }
+    
+    @Test("Test minutes lamps are provided by the engine")
+    func compose_usesEngineForMinutes() {
+        let engine = BerlinClockEngine()
+        let composer = BerlinClockTimeComposer(engine: engine)
+
+        let state = composer.composeClockTime(
+            hours: 0,
+            minutes: 6,
+            seconds: 0
+        )
+        #expect(state.topMins == [.on(.yellow), .off, .off, .off, .off, .off, .off, .off, .off, .off, .off])
+        #expect(state.bottomMins == [.on(.yellow), .off, .off, .off])
+    }
+    
+    @Test("Test seconds lamp is provided by the engine")
+    func compose_usesEngineForHours() {
+        let engine = BerlinClockEngine()
+        let composer = BerlinClockTimeComposer(engine: engine)
+        
+        let state = composer.composeClockTime(
+            hours: 13,
+            minutes: 0,
+            seconds: 0
+        )
+        
+        #expect(state.topHours == [.on(.red), .on(.red), .off, .off])
+        #expect(state.bottomHours == [.on(.red), .on(.red), .on(.red), .off])
     }
 }
 
