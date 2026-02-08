@@ -30,5 +30,18 @@ struct BerlinClockTimeComposerTests {
         // bottom hours row has 4 lamps
         #expect(state.4.count == 4)
     }
+    
+    @Test("Test seconds lamp is provided by the engine")
+    func compose_usesEngineForSeconds() {
+        let engine = BerlinClockEngine()
+        let composer = BerlinClockTimeComposer(engine: engine)
+
+        let state = composer.compose(
+            hours: 0,
+            minutes: 0,
+            seconds: 2
+        )
+        #expect(state.seconds == .on(.yellow))
+    }
 }
 
