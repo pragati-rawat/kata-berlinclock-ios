@@ -72,6 +72,5 @@ struct BerlinClockSecondsTests {
         
         #expect(true)
     }
-    
 }
 

@@ -14,26 +14,26 @@ final class ClockService {
         self.calendar = calendar
     }
     
-    func clockTime(from date: Date) -> (hours: Int, minutes: Int, seconds: Int) {
+    func clockTime(from date: Date) -> BerlinDisplayClockTime {
         let components = calendar.dateComponents(
             [.hour, .minute, .second],
             from: date
         )
         
-        return (
+        return BerlinDisplayClockTime (
             hours: components.hour ?? 0,
             minutes: components.minute ?? 0,
             seconds: components.second ?? 0
         )
     }
     
-    func now() -> (hours: Int, minutes: Int, seconds: Int) {
+    func now() -> BerlinDisplayClockTime {
         clockTime(from: Date())
     }
 }
 
 extension ClockService {
-    func start(onTick: @escaping ((hours: Int, minutes: Int, seconds: Int)) -> Void) {
+    func start(onTick: @escaping (BerlinDisplayClockTime) -> Void) {
         stop()
         
         timer = Timer.scheduledTimer(
