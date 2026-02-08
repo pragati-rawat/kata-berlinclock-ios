@@ -27,4 +27,28 @@ struct BerlinClockBottomHoursTests {
         
         #expect(result == [.on(.red), .off, .off, .off])
     }
+    
+    @Test("Test bottom row two lamp is on when hours is 2")
+    func bottomHourRow_turnsOnTwoLamp_forTwoHour() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomHourRow(2)
+        
+        #expect(result == [.on(.red), .on(.red), .off, .off])
+    }
+    
+    @Test("Test bottom row three lamp is on when hours is 3")
+    func bottomHourRow_turnsOnThreeLamp_forThreeHour() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomHourRow(3)
+        
+        #expect(result == [.on(.red), .on(.red), .on(.red), .off])
+    }
+    
+    @Test("Test bottom row four lamp is on when hours is 4")
+    func bottomHourRow_turnsOnFourLamp_forFourHour() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomHourRow(4)
+        
+        #expect(result == [.on(.red), .on(.red), .on(.red), .on(.red)])
+    }
 }
