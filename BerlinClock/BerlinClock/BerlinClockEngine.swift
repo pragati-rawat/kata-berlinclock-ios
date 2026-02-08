@@ -27,5 +27,9 @@ struct BerlinClockEngine {
             return .on(color)
         }
     }
+    
+    func bottomMinuteRow(_ minutes: Int) -> [LampState] {
+        return [.off, .off, .off, .off]
+    }
 }
 
