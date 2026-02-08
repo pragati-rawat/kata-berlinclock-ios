@@ -59,4 +59,12 @@ struct BerlinClockBottomHoursTests {
         
         #expect(result.allSatisfy { $0 == .off })
     }
+    
+    @Test("Test bottom row correctly handles numbers higher than 23 by using remainder")
+    func bottomHourRow_usesRemainder_forTwentyThreeHours() {
+        let engine = BerlinClockEngine()
+        let result = engine.bottomHourRow(23) // 23 % 5 = 3
+        
+        #expect(result == [.on(.red), .on(.red), .on(.red), .off])
+    }
 }
