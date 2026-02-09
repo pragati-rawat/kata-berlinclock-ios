@@ -64,7 +64,7 @@ struct BerlinClockSecondsTests {
     
     @Test("Test edge case with start/stop/start sequence")
     func start_calledTwice_isSafe() {
-        let service = ClockService()
+        let service = BerlinClockService()
         
         service.start { _ in }
         service.start { _ in }

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-final class ClockService {
+final class BerlinClockService {
     private let calendar: Calendar
     private var timer: Timer?
     
@@ -26,13 +26,13 @@ final class ClockService {
             seconds: components.second ?? 0
         )
     }
-    
+}
+
+extension BerlinClockService : BerlinClockServiceProtocol {
     func now() -> BerlinDisplayClockTime {
         clockTime(from: Date())
     }
-}
-
-extension ClockService {
+    
     func start(onTick: @escaping (BerlinDisplayClockTime) -> Void) {
         stop()
         
