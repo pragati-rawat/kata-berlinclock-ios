@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct BerlinClockScreen: View {
+struct BerlinClockScreenView: View {
 
     @StateObject private var viewModel: BerlinClockViewModel
 
@@ -15,25 +15,32 @@ struct BerlinClockScreen: View {
     }
 
     var body: some View {
-        VStack(spacing: 18) {
-            BerlinClockView(state: viewModel.composedTimeState)
-            DigitalTimeView(text: viewModel.digitalTimeText)
+        GeometryReader { geo in
+            let availableWidth = geo.size.width - 32
+
+            VStack(spacing: 24) {
+                Spacer(minLength: 12)
+
+                BerlinClockView(
+                    state: viewModel.composedTimeState,
+                    availableWidth: availableWidth
+                )
+
+                DigitalTimeView(text: viewModel.digitalTimeText)
+
+                Spacer(minLength: 12)
+            }
+            .padding(.horizontal, 16)
+            .onAppear { viewModel.start() }
+            .onDisappear { viewModel.stop() }
         }
-        .padding()
         .navigationTitle("Berlin Clock")
-        .onAppear {
-            viewModel.start()
-        }
-        .onDisappear {
-            viewModel.stop()
-        }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("Berlin Clock screen")
     }
 }
 
+// MARK: Helper for preveiw
 #Preview("BerlinClockScreen") {
-    BerlinClockScreen(
+    BerlinClockScreenView(
         viewModel: BerlinClockViewModel(
             clockService: PreviewBerlinClockService(),
             composer: PreviewBerlinClockComposer()

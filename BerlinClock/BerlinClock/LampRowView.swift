@@ -8,53 +8,73 @@ import SwiftUI
 
 struct LampRowView: View {
 
-    let title: String
     let lamps: [LampState]
+    let availableWidth: CGFloat
+    let lampHeight: CGFloat
+    let isCircle: Bool
+
+    private let spacing: CGFloat = 8
 
     var body: some View {
-        HStack(spacing: 10) {
-            ForEach(Array(lamps.enumerated()), id: \.offset) { index, lamp in
-                LampView(state: lamp)
-                    .accessibilityLabel("\(title) lamp \(index + 1)")
+        let lampWidth = calculateLampWidth()
+
+        HStack(spacing: spacing) {
+            ForEach(Array(lamps.enumerated()), id: \.offset) { _, lamp in
+                LampView(
+                    state: lamp,
+                    width: lampWidth,
+                    height: lampHeight,
+                    isCircle: isCircle
+                )
             }
         }
+        .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(title)
-        .accessibilityValue(accessibilitySummary)
     }
 
-    private var accessibilitySummary: String {
-        let onCount = lamps.filter {
-            if case .on = $0 { return true }
-            return false
-        }.count
-
-        return "\(onCount) on, \(lamps.count - onCount) off"
+    private func calculateLampWidth() -> CGFloat {
+        let count = CGFloat(lamps.count)
+        let totalSpacing = spacing * (count - 1)
+        return (availableWidth - totalSpacing) / count
     }
 }
+
+//MARK: PREVIEW 
 
 #Preview("LampRowView") {
-    VStack(spacing: 24) {
-        // Seconds (1 lamp)
-        LampRowView(
-            title: "Seconds",
-            lamps: [.on(.yellow)]
-        )
+    GeometryReader { proxy in
+        let width = proxy.size.width - 32
 
-        // Top minutes (11 lamps with quarters)
-        LampRowView(
-            title: "Top Minutes",
-            lamps: [
-                .on(.yellow), .on(.yellow), .on(.red), .on(.yellow), .on(.yellow),
-                .on(.red), .off, .off, .off, .off, .off
-            ]
-        )
+        VStack(spacing: 24) {
 
-        // Bottom minutes (4 lamps)
-        LampRowView(
-            title: "Bottom Minutes",
-            lamps: [.on(.yellow), .off, .off, .off]
-        )
+            // Seconds (circle, single lamp)
+            LampRowView(
+                lamps: [.on(.yellow)],
+                availableWidth: 80,
+                lampHeight: 80,
+                isCircle: true
+            )
+
+            // Top minutes (11 lamps)
+            LampRowView(
+                lamps: [
+                    .on(.yellow), .on(.yellow), .on(.red), .on(.yellow), .on(.yellow),
+                    .on(.red), .off, .off, .off, .off, .off
+                ],
+                availableWidth: width,
+                lampHeight: 70,
+                isCircle: false
+            )
+
+            // Bottom minutes (4 lamps)
+            LampRowView(
+                lamps: [.on(.yellow), .off, .off, .off],
+                availableWidth: width,
+                lampHeight: 70,
+                isCircle: false
+            )
+        }
+        .padding()
     }
-    .padding()
 }
+

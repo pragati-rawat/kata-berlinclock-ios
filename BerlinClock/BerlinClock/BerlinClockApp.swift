@@ -11,7 +11,20 @@ import SwiftUI
 struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BerlinClockScreenView(
+                viewModel: makeBerlinClockViewModel()
+            )
         }
+    }
+
+    // MARK: - Dependency assembly
+    private func makeBerlinClockViewModel() -> BerlinClockViewModel {
+        let clockService = BerlinClockService()
+        let composer = BerlinClockTimeComposer()
+
+        return BerlinClockViewModel(
+            clockService: clockService,
+            composer: composer
+        )
     }
 }

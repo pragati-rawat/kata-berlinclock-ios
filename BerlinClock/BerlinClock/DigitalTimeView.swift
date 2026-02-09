@@ -28,7 +28,7 @@ struct DigitalTimeView: View {
     }
 }
 
-
+//MARK: PREVIEW
 #Preview("DigitalTimeView") {
     VStack(spacing: 16) {
         DigitalTimeView(text: "13:28:00")

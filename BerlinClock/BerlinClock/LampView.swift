@@ -8,39 +8,55 @@
 import SwiftUI
 
 struct LampView: View {
+
     let state: LampState
-    
+    let width: CGFloat
+    let height: CGFloat
+    let isCircle: Bool
+
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 8, style: .continuous)
-            .fill(fillColor)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(borderColor, lineWidth: 1)
+        RoundedRectangle(
+            cornerRadius: cornerRadius,
+            style: .continuous
+        )
+        .fill(fillColor)
+        .overlay(
+            RoundedRectangle(
+                cornerRadius: cornerRadius,
+                style: .continuous
             )
-            .frame(width: 28, height: 28)
-            .accessibilityElement()
-            .accessibilityLabel("Lamp")
-            .accessibilityValue(accessibilityValue)
+            .stroke(borderColor, lineWidth: 1)
+        )
+        .frame(width: width, height: height)
+        .scaleEffect(state.isOn ? 1.0 : 0.95)
+        .animation(animation, value: state)
+        .accessibilityElement()
+        .accessibilityLabel("Lamp")
+        .accessibilityValue(accessibilityValue)
+    }
+
+    // MARK: - Computed helpers
+    private var cornerRadius: CGFloat {
+        isCircle ? height / 2 : 10
     }
 
     private var fillColor: Color {
-        switch state {
-        case .off:
+        guard state.isOn, let color = state.lampColor else {
             return Color.secondary.opacity(colorScheme == .dark ? 0.25 : 0.18)
-        case .on(let color):
-            switch color {
-            case .yellow:
-                return .yellow
-            case .red:
-                return .red
-            }
         }
+
+        return color == .yellow ? .yellow : .red
     }
 
     private var borderColor: Color {
         Color.primary.opacity(colorScheme == .dark ? 0.35 : 0.18)
+    }
+
+    private var animation: Animation? {
+        reduceMotion ? nil : .easeInOut(duration: 0.25)
     }
 
     private var accessibilityValue: String {
@@ -48,21 +64,18 @@ struct LampView: View {
         case .off:
             return "Off"
         case .on(let color):
-            switch color {
-            case .yellow:
-                return "On, Yellow"
-            case .red:
-                return "On, Red"
-            }
+            return "On, \(color == .yellow ? "Yellow" : "Red")"
         }
     }
 }
 
+//MARK: PREVIEW
 #Preview("LampView States") {
     VStack(spacing: 16) {
-        LampView(state: .on(.yellow))
-        LampView(state: .on(.red))
-        LampView(state: .off)
+        LampView(state: .on(.yellow), width: 80, height: 80, isCircle: true)
+        LampView(state: .on(.red), width: 80, height: 100, isCircle: false)
+        LampView(state: .on(.yellow), width: 80, height: 100, isCircle: true)
     }
     .padding()
 }
+

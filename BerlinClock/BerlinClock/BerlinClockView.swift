@@ -7,49 +7,58 @@
 import SwiftUI
 
 struct BerlinClockView: View {
+
     let state: BerlinClockComposeTimeState?
+    let availableWidth: CGFloat
 
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 18) {
 
-            // Seconds (1 lamp)
-            LampRowView(
-                title: "Seconds",
-                lamps: secondsRow
+            // Seconds (single circular lamp)
+            LampView(
+                state: state?.seconds ?? .off,
+                width: 120,
+                height: 120,
+                isCircle: true
             )
 
-            // Hours
+            // Hours (top row)
             LampRowView(
-                title: "Top Hours",
-                lamps: state?.topHours ?? Array(repeating: .off, count: 4)
+                lamps: state?.topHours ?? Array(repeating: .off, count: 4),
+                availableWidth: availableWidth,
+                lampHeight: 70,
+                isCircle: false
             )
 
+            // Hours (bottom row)
             LampRowView(
-                title: "Bottom Hours",
-                lamps: state?.bottomHours ?? Array(repeating: .off, count: 4)
+                lamps: state?.bottomHours ?? Array(repeating: .off, count: 4),
+                availableWidth: availableWidth,
+                lampHeight: 70,
+                isCircle: false
             )
 
-            // Minutes
+            // Minutes (top row – 11 lamps)
             LampRowView(
-                title: "Top Minutes",
-                lamps: state?.topMins ?? Array(repeating: .off, count: 11)
+                lamps: state?.topMins ?? Array(repeating: .off, count: 11),
+                availableWidth: availableWidth,
+                lampHeight: 70,
+                isCircle: false
             )
 
+            // Minutes (bottom row)
             LampRowView(
-                title: "Bottom Minutes",
-                lamps: state?.bottomMins ?? Array(repeating: .off, count: 4)
+                lamps: state?.bottomMins ?? Array(repeating: .off, count: 4),
+                availableWidth: availableWidth,
+                lampHeight: 70,
+                isCircle: false
             )
         }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("Berlin Clock")
-    }
-
-    private var secondsRow: [LampState] {
-        [state?.seconds ?? .off]
     }
 }
 
+
 #Preview("BerlinClockView – Nil state (all off)") {
-    BerlinClockView(state: nil)
+    BerlinClockView(state: nil, availableWidth: 320)
         .padding()
 }
