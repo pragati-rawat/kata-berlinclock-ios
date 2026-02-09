@@ -47,6 +47,30 @@ struct BerlinClockViewModelTests {
         // THEN
         #expect(viewModel.composedTimeState == expectedState)
     }
+    
+    @Test("Test for state not updated on subsequent calls to start")
+    func start_calledMultipleTimes_doesNotCreateDuplicateUpdates() {
+        let service = MockBerlinClockService()
+        
+        let expectedState = BerlinClockComposeTimeState.empty()
+        let composer = MockBerlinClockTimeComposer(stubbedState: expectedState)
+        
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+        
+        // WHEN: start called twice
+        viewModel.startEmittingTime()
+        viewModel.startEmittingTime()
+        
+        // THEN: a single tick updates state once (still equals expected)
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 1, minutes: 1, seconds: 1)
+        )
+        
+        #expect(viewModel.composedTimeState == expectedState)
+    }
 }
 
 // MARK: Helper functions
