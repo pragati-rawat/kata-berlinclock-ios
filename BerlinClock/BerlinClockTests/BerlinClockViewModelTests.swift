@@ -92,6 +92,31 @@ struct BerlinClockViewModelTests {
         
         #expect(viewModel.composedTimeState == nil)
     }
+    
+    @Test("Test restart after stop restarts the clock and updates state")
+    func restart_afterStop_updatesStateAgain() {
+        let service = MockBerlinClockService()
+        let expectedState = BerlinClockComposeTimeState.empty()
+        let composer = MockBerlinClockTimeComposer(stubbedState: expectedState)
+        
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+        
+        // start → stop
+        viewModel.startEmittingTime()
+        viewModel.stop()
+        
+        // restart
+        viewModel.startEmittingTime()
+        
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 2, minutes: 2, seconds: 2)
+        )
+        
+        #expect(viewModel.composedTimeState == expectedState)
+    }
 }
 
 // MARK: Helper functions
