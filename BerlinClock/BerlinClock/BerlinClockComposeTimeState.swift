@@ -5,7 +5,7 @@
 //  Created by Pragati RAWAT on 08/02/2026.
 //
 
-struct BerlinClockComposeTimeState: Equatable {
+struct BerlinClockComposeTimeState: Equatable, Sendable {
     let seconds: LampState
     let topMins: [LampState]
     let bottomMins: [LampState]

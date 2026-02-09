@@ -19,4 +19,15 @@ final class BerlinClockViewModel {
         self.composer = composer
         self.composedTimeState = nil
     }
+    
+    func startEmittingTime() {
+        clockService.start { [weak self] time in
+            guard let self else { return }
+            self.composedTimeState = self.composer.composeClockTime(
+                hours: time.hours,
+                minutes: time.minutes,
+                seconds: time.seconds
+            )
+        }
+    }
 }
