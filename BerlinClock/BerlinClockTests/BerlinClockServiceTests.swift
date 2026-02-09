@@ -20,7 +20,7 @@ struct ClockServiceTests {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
 
-        let service = ClockService(calendar: calendar)
+        let service = BerlinClockService(calendar: calendar)
 
         let time = service.clockTime(from: date)
 
@@ -31,7 +31,7 @@ struct ClockServiceTests {
 
     @Test("Test now() to return current clock time")
     func now_returnsClockTime() {
-        let service = ClockService()
+        let service = BerlinClockService()
         let time = service.now()
 
         #expect(time.hours >= 0)
@@ -41,7 +41,7 @@ struct ClockServiceTests {
     
     @Test("Test start/stop to not crash")
     func start_thenStop_doesNotCrash() {
-        let service = ClockService()
+        let service = BerlinClockService()
 
         service.start { _ in }
         service.stop()
