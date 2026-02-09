@@ -40,11 +40,6 @@
 			path = BerlinClockTests;
 			sourceTree = "<group>";
 		};
-		0A3DB1432F3649E000EC029F /* BerlinClockUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BerlinClockUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +72,6 @@
 			children = (
 				0A3DB12B2F3649DE00EC029F /* BerlinClock */,
 				0A3DB1392F3649E000EC029F /* BerlinClockTests */,
-				0A3DB1432F3649E000EC029F /* BerlinClockUITests */,
 				0A3DB12A2F3649DE00EC029F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,9 +146,6 @@
 			);
 			dependencies = (
 				0A3DB1422F3649E000EC029F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				0A3DB1432F3649E000EC029F /* BerlinClockUITests */,
 			);
 			name = BerlinClockUITests;
 			packageProductDependencies = (
