@@ -136,6 +136,53 @@ struct BerlinClockViewModelTests {
         
         #expect(viewModel.digitalTimeText == "13:28:00")
     }
+    
+    @Test("Test that digital time text has leading zeros for single-digit values")
+    func digitalTime_hasLeadingZeros_forSingleDigitValues() {
+        let service = MockBerlinClockService()
+        let composer = MockBerlinClockTimeComposer(stubbedState: .empty())
+
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+
+        viewModel.startEmittingTime()
+
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 1, minutes: 2, seconds: 3)
+        )
+
+        #expect(viewModel.digitalTimeText == "01:02:03")
+    }
+
+    @Test("Test that it correctly handles hour boundary transitions (e.g. from 23 to 00)")
+    func digitalTime_handlesHourBoundaryTransitions() {
+        let service = MockBerlinClockService()
+        let composer = MockBerlinClockTimeComposer(stubbedState: .empty())
+
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+
+        viewModel.startEmittingTime()
+
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 11, minutes: 59, seconds: 59)
+        )
+        #expect(viewModel.digitalTimeText == "11:59:59")
+
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 12, minutes: 0, seconds: 0)
+        )
+        #expect(viewModel.digitalTimeText == "12:00:00")
+
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 13, minutes: 0, seconds: 0)
+        )
+        #expect(viewModel.digitalTimeText == "13:00:00")
+    }
 }
 
 // MARK: Helper functions
