@@ -46,15 +46,6 @@ final class BerlinClockViewModel {
             seconds: time.seconds
         )
         
-        digitalTimeText = formatDigitalTime(from: time)
-    }
-    
-    private func formatDigitalTime(from time: BerlinDisplayClockTime) -> String {
-        String(
-            format: "%02d:%02d:%02d",
-            time.hours,
-            time.minutes,
-            time.seconds
-        )
+        digitalTimeText = time.digitalText
     }
 }
