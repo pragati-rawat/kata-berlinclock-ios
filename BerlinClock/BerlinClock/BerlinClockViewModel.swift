@@ -35,4 +35,10 @@ final class BerlinClockViewModel {
             )
         }
     }
+    
+    func stop() {
+        guard isStarted else { return }
+        isStarted = false
+        clockService.stop()
+    }
 }

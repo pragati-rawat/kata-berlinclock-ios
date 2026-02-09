@@ -72,6 +72,26 @@ struct BerlinClockViewModelTests {
         
         #expect(viewModel.composedTimeState == expectedState)
     }
+    
+    @Test("Test for state to be nil when clock is stopped")
+    func stop_preventsFurtherStateUpdates() {
+        let service = MockBerlinClockService()
+        let composer = MockBerlinClockTimeComposer(stubbedState: .empty())
+        
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+        
+        viewModel.startEmittingTime()
+        viewModel.stop()
+        
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 5, minutes: 5, seconds: 5)
+        )
+        
+        #expect(viewModel.composedTimeState == nil)
+    }
 }
 
 // MARK: Helper functions
