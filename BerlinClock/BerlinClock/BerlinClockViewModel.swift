@@ -13,6 +13,7 @@ final class BerlinClockViewModel {
     private let composer: BerlinClockTimeComposerProtocol
 
     @Published private(set) var composedTimeState: BerlinClockComposeTimeState?
+    @Published private(set) var digitalTimeText: String = ""
 
     private var isStarted = false
 
@@ -43,6 +44,17 @@ final class BerlinClockViewModel {
             hours: time.hours,
             minutes: time.minutes,
             seconds: time.seconds
+        )
+        
+        digitalTimeText = formatDigitalTime(from: time)
+    }
+    
+    private func formatDigitalTime(from time: BerlinDisplayClockTime) -> String {
+        String(
+            format: "%02d:%02d:%02d",
+            time.hours,
+            time.minutes,
+            time.seconds
         )
     }
 }

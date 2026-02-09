@@ -117,6 +117,25 @@ struct BerlinClockViewModelTests {
         
         #expect(viewModel.composedTimeState == expectedState)
     }
+    
+    @Test("Test that it updates the digital time text when clock service emits time")
+    func start_updatesDigitalTimeText_whenClockServiceEmitsTime() {
+        let service = MockBerlinClockService()
+        let composer = MockBerlinClockTimeComposer(stubbedState: .empty())
+        
+        let viewModel = BerlinClockViewModel(
+            clockService: service,
+            composer: composer
+        )
+        
+        viewModel.startEmittingTime()
+        
+        service.simulateTick(
+            at: BerlinDisplayClockTime(hours: 13, minutes: 28, seconds: 0)
+        )
+        
+        #expect(viewModel.digitalTimeText == "13:28:00")
+    }
 }
 
 // MARK: Helper functions
