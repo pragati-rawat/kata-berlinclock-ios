@@ -7,7 +7,7 @@
 import Foundation
 import Combine
 
-final class BerlinClockViewModel {
+final class BerlinClockViewModel: ObservableObject {
 
     private let clockService: BerlinClockServiceProtocol
     private let composer: BerlinClockTimeComposerProtocol
@@ -23,7 +23,7 @@ final class BerlinClockViewModel {
         self.composedTimeState = nil
     }
 
-    func startEmittingTime() {
+    func start() {
         guard !isStarted else { return }
         isStarted = true
 
@@ -49,3 +49,4 @@ final class BerlinClockViewModel {
         digitalTimeText = time.digitalText
     }
 }
+
