@@ -14,6 +14,8 @@ final class BerlinClockViewModel {
     
     @Published private(set) var composedTimeState: BerlinClockComposeTimeState?
     
+    private var isStarted = false
+
     init(clockService: BerlinClockServiceProtocol, composer: BerlinClockTimeComposerProtocol) {
         self.clockService = clockService
         self.composer = composer
@@ -21,6 +23,9 @@ final class BerlinClockViewModel {
     }
     
     func startEmittingTime() {
+        guard !isStarted else { return }
+        isStarted = true
+        
         clockService.start { [weak self] time in
             guard let self else { return }
             self.composedTimeState = self.composer.composeClockTime(

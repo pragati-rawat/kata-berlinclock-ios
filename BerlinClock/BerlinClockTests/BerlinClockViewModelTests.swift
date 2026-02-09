@@ -49,6 +49,7 @@ struct BerlinClockViewModelTests {
     }
     
     @Test("Test for state not updated on subsequent calls to start")
+    @MainActor
     func start_calledMultipleTimes_doesNotCreateDuplicateUpdates() {
         let service = MockBerlinClockService()
         
